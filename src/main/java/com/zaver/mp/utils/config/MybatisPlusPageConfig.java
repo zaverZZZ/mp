@@ -1,0 +1,30 @@
+package com.zaver.mp.utils.config;
+
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * @ClassName : MybatisPlusPageConfig
+ * @Description TODO
+ * @Date : 2019/4/13 19:45
+ * @Author ABC
+ * @Version 1.0
+ * @Explanation ：
+ */
+@EnableTransactionManagement
+@Configuration
+@MapperScan("com.zaver.mp.app.dao")
+public class MybatisPlusPageConfig {
+
+    /**
+     * mybattis-plus 分页插件配置
+     * @return
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor(){
+        return new PaginationInterceptor();
+    }
+}
