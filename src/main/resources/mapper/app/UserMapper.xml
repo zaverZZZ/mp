@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zaver.mp.app.dao.UserDao">
-
+    <select id="pageAll" resultType="com.zaver.mp.app.model.User">
+        select id,user_name,nick_name,create_time from `user` where 1=1 and nick_name like "%"#{nickName}"%"
+    </select>
 </mapper>

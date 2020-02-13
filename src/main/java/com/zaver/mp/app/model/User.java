@@ -9,11 +9,11 @@ package com.zaver.mp.app.model;
  * @Explanation ：
  */
 public class User {
-    public Integer id;
-    public String userName;
-    public String passWord;
-    public String nickName;
-    public long createTime;
+    private Integer id;
+    private String userName;
+    private String passWord;
+    private String nickName;
+    private Long createTime;
 
     public Integer getId() {
         return id;
@@ -47,11 +47,11 @@ public class User {
         this.nickName = nickName;
     }
 
-    public long getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 }

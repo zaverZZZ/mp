@@ -2,9 +2,11 @@ package com.zaver.mp.app.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zaver.mp.app.model.User;
+import com.zaver.mp.rbac.service.impl.RedisServiceImpl;
+import com.zaver.mp.utils.Constants;
 import com.zaver.mp.utils.Result;
+import com.zaver.mp.utils.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,18 +22,18 @@ import org.springframework.web.bind.annotation.*;
 public class RedisController {
 
     @Autowired
-    private StringRedisTemplate strRedis;
-    @GetMapping("/info/{id}")
-    public Result redisInfo(@PathVariable("id") String id){
-        // stringRedis.opsForValue().set("local","host");
-        return Result.ok(strRedis.opsForValue().get(id));
+    private RedisServiceImpl redisService;
+
+    @GetMapping("/token/{id}")
+    public Result tokenInfo(@PathVariable("id") String id){
+        String tokenById = redisService.getSysUserTokenById(id);
+        return Result.ok(tokenById);
     }
 
-    @PostMapping("/json")
-    public Result redisSave(User user){
-        strRedis.opsForValue().set("json:user",JSON.toJSONString(user));
-        String jsonUser = strRedis.opsForValue().get("json:user");
-        User user1 = JSON.parseObject(jsonUser, User.class);
-        return Result.ok(user1);
+    @PostMapping("/user")
+    public Result userInfoSave(User user){
+        redisService.setAppUserInfo(user);
+        User appUserInfo = redisService.getAppUserInfo(user.getId());
+        return Result.ok(appUserInfo);
     }
 }

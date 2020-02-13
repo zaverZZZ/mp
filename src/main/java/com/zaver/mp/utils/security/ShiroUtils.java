@@ -1,4 +1,4 @@
-package com.zaver.mp.utils.shiro;
+package com.zaver.mp.utils.security;
 
 import com.zaver.mp.rbac.model.RbacUser;
 import com.zaver.mp.utils.exception.LocalException;
@@ -16,7 +16,7 @@ public class ShiroUtils {
 	/**  加密算法 */
 	public final static String hashAlgorithmName = "SHA-256";
 	/**  循环次数 */
-	public final static int hashIterations = 16;
+	public final static int hashIterations = 2;
 
 	public static String sha256(String password, String salt) {
 		return new SimpleHash(hashAlgorithmName, password, salt, hashIterations).toString();

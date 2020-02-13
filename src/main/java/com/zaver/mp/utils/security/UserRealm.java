@@ -1,6 +1,5 @@
-package com.zaver.mp.utils.shiro;
+package com.zaver.mp.utils.security;
 
-import com.alibaba.fastjson.JSON;
 import com.zaver.mp.rbac.model.RbacUser;
 import com.zaver.mp.rbac.service.RbacUserService;
 import org.apache.shiro.authc.*;
@@ -12,6 +11,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName : UserRealm
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Version 1.0
  * @Explanation ：
  */
+@Component
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired

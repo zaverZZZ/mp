@@ -1,9 +1,20 @@
 package com.zaver.mp.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
-public class Result<T> {
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class Result<T> implements Serializable {
 
+	// 响应业务状态 0 成功， -1失败
+	private Integer code;
+
+	// 响应消息
+	private String msg;
+
+	// 响应中的数据
+	private T obj;
 
 	public final static Integer CODE_SUCCESS = 0;
 	public final static String MSG_SUCCESS = "success";
@@ -15,15 +26,6 @@ public class Result<T> {
 	public final static String MSG_ERROR_PARAM = "param error";
 	public final static Integer CODE_ERROR_UNKNOWN = 1002;
 	public final static String MSG_ERROR_UNKNOWN = "unknown error";
-
-	// 响应业务状态 0 成功， -1失败
-	private Integer code;
-
-	// 响应消息
-	private String msg;
-
-	// 响应中的数据
-	private T obj;
 
 	public static <T> Result<T> build(Integer status, String msg, T obj) {
 		return new Result<T>(status, msg, obj);

@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -39,7 +40,6 @@ public class LogAspect {
 	private long startTimeMillis = 0; 					// 开始时间
 	private long endTimeMillis = 0; 					// 结束时间
 	private String method = null;    					// post get
-
 	/**
 	 * 
 	 * @Title：doBeforeInServiceLayer
@@ -83,21 +83,33 @@ public class LogAspect {
 		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
 		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
 		HttpServletRequest request = sra.getRequest();
-		
+
+
+		Object[] args = pjp.getArgs(); // 参数值
+		String[] argNames = ((MethodSignature)pjp.getSignature()).getParameterNames(); // 参数名
+		Map map = new HashMap();
+		if(args.length!=0 && argNames.length!=0 && argNames.length==args.length){
+			for (int i = 0; i < argNames.length; i++) {
+				String argName = argNames[i];
+				Object arg = args[i];
+				map.put(argName,arg);
+			}
+		}
 		String requestURI = request.getRequestURI();  //获取访问URI
 		// 从请求中获取用户信息
 		userInfo = "user1";
 		// 获取输入参数
-		inputParamMap = request.getParameterMap();
+		inputParamMap = map;
+		// inputParamMap = request.getParameterMap();
 		// 获取请求地址
 		requestPath = request.getServletPath();//.replaceAll("/xcxWeb", "");
 		// 获取post get
 		method = request.getMethod();
 		// 执行完方法的返回值：调用proceed()方法，就会触发切入点方法执行
-		outputParamMap = new HashMap<String, Object>();
+		outputParamMap = new HashMap<>();
 		Object result = pjp.proceed();// result的值就是被拦截方法的返回值
 		outputParamMap.put("result", result);
-		
+
 		return result;
 	}
 	

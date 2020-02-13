@@ -38,39 +38,60 @@ public class UserController {
 
 
     @GetMapping("/info/{id}")
-    public User infoById(@PathVariable("id") Integer id){
+    public Result<User> infoById(@PathVariable("id") Integer id){
         User user = userService.getById(id);
-        return user;
+        return Result.ok(user);
     }
     @GetMapping("/list")
-    public List<User> list() throws IllegalAccessException, InstantiationException {
+    public Result<List<User>> list() throws IllegalAccessException, InstantiationException {
         List<User> user = userService.list();
         List<Map<String, Object>> maps = BeanUtil.objectsToMaps(user);
         List<User> users = BeanUtil.mapsToObjects(maps, User.class);
-        return users;
+        return Result.ok(users);
     }
     @GetMapping("/page/{page}")
     public Result<IPage<User>> pageList(@PathVariable("page") Integer pageNum, @RequestParam Integer pageSize){
         Page<User> page = new Page<>(pageNum,pageSize);
         IPage<User> userPage = userService.page(page);
+
         log.info("打印了日志 在userController");
         return Result.ok(userPage);
     }
 
+    @GetMapping("/page")
+    public Result page(@RequestParam Integer pageNum,@RequestParam Integer pageSize,@RequestParam(required = false) String nickName){
+        Page<User> page = new Page<>(pageNum, pageSize);
+        IPage<User> userIPage = userService.pageAll(page,nickName);
+        String[] ascs = userIPage.ascs();
+        if(ascs!=null && ascs.length>0){
+            System.out.println("================================================");
+            for (int i = 0; i < ascs.length; i++) {
+                String asc = ascs[i];
+                System.out.println(asc);
+            }
+            System.out.println("================================================");
+        }
+        return Result.ok(userIPage);
+    }
+
     @GetMapping("/map/{id}")
-    public Object infoMapById(@PathVariable("id") Integer id){
+    public Result<Map> infoMapById(@PathVariable("id") Integer id){
         User user = userService.getById(id);
         Map<String, Object> map = BeanUtil.beanToMap(user);
-        return map;
+        return Result.ok(map);
     }
+
     @GetMapping("/test1")
     public Result test1(){
         throw new LocalException(Result.error(1000,"123"));
     }
+
     @GetMapping("/test2")
-    public Result test2(){
-        List<String> li = new ArrayList<>();
-        li.get(1);
-        return Result.ok();
+    public Result testRedis(){
+        String result = "redis连接工厂："+stringRedis.getConnectionFactory();
+        System.out.print(result);
+        return Result.ok(result);
     }
+
+
 }
