@@ -1,7 +1,7 @@
 package com.zaver.mp.utils.security;
 
-import com.zaver.mp.rbac.model.RbacUser;
-import com.zaver.mp.rbac.service.RbacUserService;
+import com.zaver.mp.sys.rbac.model.RbacUser;
+import com.zaver.mp.sys.rbac.service.RbacUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

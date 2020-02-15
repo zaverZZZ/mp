@@ -26,6 +26,8 @@ public class Result<T> implements Serializable {
 	public final static String MSG_ERROR_PARAM = "param error";
 	public final static Integer CODE_ERROR_UNKNOWN = 1002;
 	public final static String MSG_ERROR_UNKNOWN = "unknown error";
+	public final static Integer CODE_ERROR_IDEMPOTENT = 1003;
+	public final static String MSG_ERROR_IDEMPOTENT = "resubmit error";
 
 	public static <T> Result<T> build(Integer status, String msg, T obj) {
 		return new Result<T>(status, msg, obj);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zaver.mp.rbac.dao.RbacPermissionDao">
+<mapper namespace="com.zaver.mp.sys.rbac.dao.RbacPermissionDao">
     <!--listAliveMenu-->
     <select id="listAliveMenu" resultType="java.util.Map">
         select a.*, b.`name` as `parrentName`
@@ -10,7 +10,7 @@
         where 1=1 and status=1;
     </select>
     <!--listMenuByUser-->
-    <select id="listMenuByUser" resultType="com.zaver.mp.rbac.model.RbacPermission" parameterType="java.lang.Integer">
+    <select id="listMenuByUser" resultType="com.zaver.mp.sys.rbac.model.RbacPermission" parameterType="java.lang.Integer">
         select c.*
         from
         rbac_user_role a,

@@ -72,10 +72,8 @@ public class RedisUtils {
         return value == null ? null : fromJson(value, clazz);
     }
 
-
-
-    public void delete(String key) {
-        stringRedisTemplate.delete(key);
+    public Boolean delete(String key) {
+        return stringRedisTemplate.delete(key);
     }
 
     /**

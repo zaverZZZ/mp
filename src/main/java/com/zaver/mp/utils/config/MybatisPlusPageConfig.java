@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.zaver.mp.app.dao")
+@MapperScan({"com.zaver.mp.*.*.dao"})
 public class MybatisPlusPageConfig {
 
     /**

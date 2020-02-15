@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zaver.mp.rbac.dao.RbacRoleDao">
-
+<mapper namespace="com.zaver.mp.sys.rbac.dao.RbacRoleDao">
+    <select id="getRoleByUserId" parameterType="Integer" resultType="com.zaver.mp.sys.rbac.model.RbacRole">
+        SELECT
+            r.*
+        FROM
+            rbac_role r,
+            rbac_user u,
+            rbac_user_role ur
+        WHERE
+            1 = 1
+            AND r.id = ur.role_id
+            AND u.id = ur.user_id
+            AND u.id = #{id}
+            AND u.STATUS = 1
+    </select>
 </mapper>

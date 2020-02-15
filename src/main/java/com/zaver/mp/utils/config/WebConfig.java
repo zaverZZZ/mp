@@ -23,7 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 使用fastjson代替jackson
-     *
      * @param converters
      */
     @Override

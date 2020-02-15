@@ -1,13 +1,16 @@
 package com.zaver.mp.utils.security;
 
 import com.alibaba.fastjson.JSON;
+import com.zaver.mp.utils.Constants;
 import com.zaver.mp.utils.HttpUtil;
 import com.zaver.mp.utils.Result;
 import com.zaver.mp.utils.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.CollectionUtils;
+import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +20,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @ClassName : ShiroFilter
@@ -26,10 +30,12 @@ import java.io.IOException;
  * @Version 1.0
  * @Explanation ：
  */
-public class ShiroFilter extends AuthenticatingFilter {
+public class ShiroFilter extends BasicHttpAuthenticationFilter {
+
     private final Logger log = LoggerFactory.getLogger(ShiroFilter.class);
+
     @Override
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response){
         //获取请求token
         String token = getRequestToken((HttpServletRequest) request);
         if(StringUtils.isBlank(token)){
@@ -38,13 +44,25 @@ public class ShiroFilter extends AuthenticatingFilter {
         return new ShiroToken(token);
     }
 
-
     // 不进行拦截
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         // 处理跨域 OPTIONS不进行拦截
         if(((HttpServletRequest) request).getMethod().equals(RequestMethod.OPTIONS.name())){
             return true;
+        }
+        Subject subject = getSubject(request, response);
+        String[] rolesArray = (String[]) mappedValue;
+        // 当前路径没有需要拦截的角色
+        if(rolesArray == null || rolesArray.length == 0){
+            return true;
+        }
+        // 判断是否存在可以访问的权限
+        Set<String> roles = CollectionUtils.asSet(rolesArray);
+        for (String role : roles) {
+            if(subject.hasRole(role)){
+                return true;
+            }
         }
         return false;
     }
@@ -90,10 +108,10 @@ public class ShiroFilter extends AuthenticatingFilter {
      */
     private String getRequestToken(HttpServletRequest httpRequest){
         //从header中获取token
-        String token = httpRequest.getHeader("token");
+        String token = httpRequest.getHeader(Constants.REQUEST_HEADER_AUTHIRIZATION);
         //如果header中不存在token，则从参数中获取token
         if(StringUtils.isBlank(token)){
-            token = httpRequest.getParameter("token");
+            token = httpRequest.getParameter(Constants.REQUEST_HEADER_AUTHIRIZATION);
         }
         return token;
     }
