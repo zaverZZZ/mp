@@ -14,17 +14,4 @@ import java.util.Map;
 @Service
 public class RbacPermissionServiceImpl extends ServiceImpl<RbacPermissionDao, RbacPermission> implements RbacPermissionService{
 
-    @Autowired
-    private RbacPermissionDao permissionDao;
-    @Override
-    public List<Map<String,Object>> listAliveMenu() {
-        List<Map<String,Object>> menu = permissionDao.listAliveMenu();
-        return menu;
-    }
-
-    @Override
-    public List<RbacPermission> listMenuByUser(Integer id) {
-        List<RbacPermission> menu = permissionDao.listMenuByUser(id);
-        return menu;
-    }
 }

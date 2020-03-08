@@ -3,6 +3,7 @@ package com.zaver.mp.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.Map;
 
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class Result<T> implements Serializable {
@@ -14,7 +15,7 @@ public class Result<T> implements Serializable {
 	private String msg;
 
 	// 响应中的数据
-	private T obj;
+	private T data;
 
 	public final static Integer CODE_SUCCESS = 0;
 	public final static String MSG_SUCCESS = "success";
@@ -28,6 +29,8 @@ public class Result<T> implements Serializable {
 	public final static String MSG_ERROR_UNKNOWN = "unknown error";
 	public final static Integer CODE_ERROR_IDEMPOTENT = 1003;
 	public final static String MSG_ERROR_IDEMPOTENT = "resubmit error";
+	public final static Integer CODE_ERROR_NOTLOGIN = 50008;
+	public final static String MSG_ERROR_NOTLOGIN = "not login";
 
 	public static <T> Result<T> build(Integer status, String msg, T obj) {
 		return new Result<T>(status, msg, obj);
@@ -60,6 +63,19 @@ public class Result<T> implements Serializable {
 
 	}
 
+	public Result put(String key, Object o){
+        Map<String, Object> stringObjectMap;
+	    if(!(this.data instanceof Map)){
+            stringObjectMap = BeanUtil.beanToMap(this.data == null ? new Object() : this.data);
+        }else {
+            stringObjectMap = (Map<String, Object>) this.data;
+        }
+        if (stringObjectMap.containsKey("class")) stringObjectMap.remove("class");
+        stringObjectMap.put(key, o);
+        this.data = (T) stringObjectMap;
+        return this;
+    }
+
 	public static <T> Result<T> build(Integer status, String msg) {
 		return new Result<T>(status, msg, null);
 	}
@@ -69,16 +85,16 @@ public class Result<T> implements Serializable {
 		return result;
 	}
 
-	public Result(Integer status, String msg, T obj) {
+	public Result(Integer status, String msg, T data) {
 		this.code = status;
 		this.msg = msg;
-		this.obj = obj;
+		this.data = data;
 	}
 
-	public Result(T obj) {
+	public Result(T data) {
 		this.code = 0;
 		this.msg = MSG_SUCCESS;
-		this.obj = obj;
+		this.data = data;
 	}
 
 	public Integer getCode() {
@@ -97,12 +113,12 @@ public class Result<T> implements Serializable {
 		this.msg = msg;
 	}
 
-	public T getObj() {
-		return obj;
+	public T getData() {
+		return data;
 	}
 
-	public void setObj(T obj) {
-		this.obj = obj;
+	public void setData(T data) {
+		this.data = data;
 	}
 
 }

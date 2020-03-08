@@ -160,7 +160,7 @@
         第一种把<root level="info">改成<root level="DEBUG">这样就会打印sql，不过这样日志那边会出现很多其他消息
         第二种就是单独给dao下目录配置debug模式，代码如下，这样配置sql语句会打印，其他还是正常info级别：
      -->
-    <logger name="com.zaver.mp.app.dao" level="DEBUG" additivity="false">
+    <logger name="com.zaver.mp.modules.app.dao" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
     <logger name="com.zaver.mp.sys.rbac.dao" level="DEBUG" additivity="false">

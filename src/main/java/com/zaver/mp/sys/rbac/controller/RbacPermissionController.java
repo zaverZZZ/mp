@@ -21,7 +21,7 @@ import java.util.Map;
  * @Explanation ：
  */
 @RestController
-@RequestMapping("/sys/rbacPermission")
+@RequestMapping("/sys/permission")
 public class RbacPermissionController {
 
     @Autowired
@@ -29,14 +29,12 @@ public class RbacPermissionController {
 
     @RequestMapping("/all")
     public Result all(){
-        List<Map<String,Object>> menu = permissionService.listAliveMenu();
-        return Result.ok(menu);
+        return Result.ok();
     }
 
     @RequestMapping("/menu")
     public Result menu(){
         RbacUser user = (RbacUser)SecurityUtils.getSubject().getPrincipal();
-        List<RbacPermission> menu = permissionService.listMenuByUser(user.getId());
-        return Result.ok(menu);
+        return Result.ok();
     }
 }

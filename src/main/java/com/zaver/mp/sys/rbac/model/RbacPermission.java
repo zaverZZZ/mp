@@ -6,73 +6,32 @@ public class RbacPermission implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-	private Integer id;
-	private String permissionId;
-	private String name;
-	private String description;
-	private String url;
-	private String perms;
-	private Integer parentId;
-	private Integer type;
-	private Integer orderNum;
+	private String createBy;
+	private Long createdAt;
 	private String icon;
-	private Integer status;
-	private Long createTime;
-	private Long updateTime;
+	private Integer id;
+	private String menuName;
+	private Integer menuType;
+	private Integer orderNum;
+	private Integer parentId;
+	private String perms;
+	private String remark;
+	private String updateBy;
+	private Long updatedAt;
+	private String url;
+	private Integer visible;
 
-	public Integer getId(){
-		return id;
+	public String getCreateBy(){
+		return createBy;
 	}
-	public void setId(Integer id){
-		this.id = id;
+	public void setCreateBy(String createBy){
+		this.createBy = createBy;
 	}
-	public String getPermissionId(){
-		return permissionId;
+	public Long getCreatedAt(){
+		return createdAt;
 	}
-	public void setPermissionId(String permissionId){
-		this.permissionId = permissionId;
-	}
-	public String getName(){
-		return name;
-	}
-	public void setName(String name){
-		this.name = name;
-	}
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description){
-		this.description = description;
-	}
-	public String getUrl(){
-		return url;
-	}
-	public void setUrl(String url){
-		this.url = url;
-	}
-	public String getPerms(){
-		return perms;
-	}
-	public void setPerms(String perms){
-		this.perms = perms;
-	}
-	public Integer getParentId(){
-		return parentId;
-	}
-	public void setParentId(Integer parentId){
-		this.parentId = parentId;
-	}
-	public Integer getType(){
-		return type;
-	}
-	public void setType(Integer type){
-		this.type = type;
-	}
-	public Integer getOrderNum(){
-		return orderNum;
-	}
-	public void setOrderNum(Integer orderNum){
-		this.orderNum = orderNum;
+	public void setCreatedAt(Long createdAt){
+		this.createdAt = createdAt;
 	}
 	public String getIcon(){
 		return icon;
@@ -80,22 +39,70 @@ public class RbacPermission implements Serializable{
 	public void setIcon(String icon){
 		this.icon = icon;
 	}
-	public Integer getStatus(){
-		return status;
+	public Integer getId(){
+		return id;
 	}
-	public void setStatus(Integer status){
-		this.status = status;
+	public void setId(Integer id){
+		this.id = id;
 	}
-	public Long getCreateTime(){
-		return createTime;
+	public String getMenuName(){
+		return menuName;
 	}
-	public void setCreateTime(Long createTime){
-		this.createTime = createTime;
+	public void setMenuName(String menuName){
+		this.menuName = menuName;
 	}
-	public Long getUpdateTime(){
-		return updateTime;
+	public Integer getMenuType(){
+		return menuType;
 	}
-	public void setUpdateTime(Long updateTime){
-		this.updateTime = updateTime;
+	public void setMenuType(Integer menuType){
+		this.menuType = menuType;
+	}
+	public Integer getOrderNum(){
+		return orderNum;
+	}
+	public void setOrderNum(Integer orderNum){
+		this.orderNum = orderNum;
+	}
+	public Integer getParentId(){
+		return parentId;
+	}
+	public void setParentId(Integer parentId){
+		this.parentId = parentId;
+	}
+	public String getPerms(){
+		return perms;
+	}
+	public void setPerms(String perms){
+		this.perms = perms;
+	}
+	public String getRemark(){
+		return remark;
+	}
+	public void setRemark(String remark){
+		this.remark = remark;
+	}
+	public String getUpdateBy(){
+		return updateBy;
+	}
+	public void setUpdateBy(String updateBy){
+		this.updateBy = updateBy;
+	}
+	public Long getUpdatedAt(){
+		return updatedAt;
+	}
+	public void setUpdatedAt(Long updatedAt){
+		this.updatedAt = updatedAt;
+	}
+	public String getUrl(){
+		return url;
+	}
+	public void setUrl(String url){
+		this.url = url;
+	}
+	public Integer getVisible(){
+		return visible;
+	}
+	public void setVisible(Integer visible){
+		this.visible = visible;
 	}
 }

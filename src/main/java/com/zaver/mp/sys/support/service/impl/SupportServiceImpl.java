@@ -32,13 +32,14 @@ public class SupportServiceImpl implements SupportService {
     }
 
     @Override
-    public void checkIdempotentToken(String token) {
+    public Boolean checkAndDeleteIdempotentToken(String token) {
         if(StringUtils.isEmpty(token)){
-            throw new LocalException(Result.CODE_ERROR_IDEMPOTENT,Result.MSG_ERROR_IDEMPOTENT);
+            return false;
         }
         Boolean del = redisService.deleteIdempotentToken(token);
         if(!del){
-            throw new LocalException(Result.CODE_ERROR_IDEMPOTENT,Result.MSG_ERROR_IDEMPOTENT);
+            return false;
         }
+        return true;
     }
 }

@@ -4,13 +4,13 @@
     <!--listAliveMenu-->
     <select id="listAliveMenu" resultType="java.util.Map">
         select a.*, b.`name` as `parrentName`
-        from sys_menu a
-        LEFT JOIN sys_menu b
-        on a.parent_id = b.menu_id
+        from rbac_permission a
+        LEFT JOIN rbac_permission b
+        on a.parent_id = b.id
         where 1=1 and status=1;
     </select>
     <!--listMenuByUser-->
-    <select id="listMenuByUser" resultType="com.zaver.mp.sys.rbac.model.RbacPermission" parameterType="java.lang.Integer">
+<!--    <select id="listMenuByUser" resultType="com.zaver.mp.sys.rbac.model.RbacPermission" parameterType="java.lang.Integer">
         select c.*
         from
         rbac_user_role a,
@@ -20,5 +20,5 @@
         and a.role_id = b.role_id
         and b.permission_id = c.id
         and a.user_id = 1;
-    </select>
+    </select>-->
 </mapper>

@@ -15,8 +15,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -77,12 +79,16 @@ public class LoginController {
     }
 
     @RequestMapping("/unLogin")
+    //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public Result unLogin(){
-        return Result.fail("请登录后使用");
+        return Result.error(Result.CODE_ERROR_NOTLOGIN,Result.MSG_ERROR_NOTLOGIN);
     }
 
     @RequestMapping("/notPermit")
     public Result notPermit(){
         return Result.fail("没有权限");
     }
+
+    @RequestMapping("/check")
+    public Result check(){return Result.ok();}
 }

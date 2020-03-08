@@ -10,6 +10,6 @@ public interface Constants {
     // 幂等性超时时间 单位秒
     Long REDIS_TIME_IDEMPOTENT = 5 * 60L;
     // request的header中的key
-    String REQUEST_HEADER_AUTHIRIZATION = "User-Token";
+    String REQUEST_HEADER_AUTHIRIZATION = "Authorization";
     String REQUEST_HEADER_IDEMPOTENT = "Idempotent-Token";
 }

@@ -120,7 +120,8 @@ public class HttpUtil {
 		HttpUtil.CHARSET = charSet;
 	}
 
-	private static HttpURLConnection getHttpConnection(String url, String method, Map<String, String> headers) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
+	private static HttpURLConnection getHttpConnection(String url, String method, Map<String, String> headers)
+			throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
 		URL _url = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection)_url.openConnection();
 		if (conn instanceof HttpsURLConnection) {
@@ -136,7 +137,8 @@ public class HttpUtil {
 		conn.setReadTimeout(19000);
 
 		conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-		conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+		conn.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
 
 		if (headers != null && !headers.isEmpty())
 			for (Entry<String, String> entry : headers.entrySet())

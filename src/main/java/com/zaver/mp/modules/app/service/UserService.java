@@ -9,4 +9,6 @@ public interface UserService extends IService<User>{
 
     // 手动分页查找
     IPage<User> pageAll(Page<User> page, String nickName);
+
+    boolean save(User user);
 }

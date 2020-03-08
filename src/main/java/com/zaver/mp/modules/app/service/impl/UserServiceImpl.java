@@ -28,4 +28,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao,User> implements UserSe
         IPage<User> result = userDao.pageAll(page,nickName);
         return result;
     }
+
+    @Override
+    public boolean save(User user) {
+        return super.save(user);
+    }
 }

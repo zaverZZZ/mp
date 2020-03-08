@@ -1,11 +1,13 @@
 package com.zaver.mp.utils.security;
 
+import com.zaver.mp.utils.Constants;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.Cookie;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
@@ -54,8 +56,8 @@ public class ShiroConfig {
         filterMap.put("/sys/rbac/login","anon");
         filterMap.put("/sys/rbac/register","anon");
         filterMap.put("/statics/**", "anon");
-        filterMap.put("/**", "authc"); // 拦截
-//        filterMap.put("/**", "anon");    // 取消拦截，对所有接口免登录
+//        filterMap.put("/**", "authc"); // 拦截
+        filterMap.put("/**", "anon");    // 取消拦截，对所有接口免登录
 //        filterMap.put("/**", "security");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
@@ -88,6 +90,11 @@ public class ShiroConfig {
         shiroSessionManager.setSessionDAO(redisSessionDAO);
         // 超时时间,默认30分钟,会话超时.单位毫秒
         shiroSessionManager.setGlobalSessionTimeout(10*60*1000);
+//        Cookie cookie = new SimpleCookie(Constants.REQUEST_HEADER_AUTHIRIZATION);
+        Cookie cookie = new SimpleCookie("token");
+        shiroSessionManager.setSessionIdCookie(cookie);
+        shiroSessionManager.setSessionIdCookieEnabled(true);
+        shiroSessionManager.setSessionIdUrlRewritingEnabled(false);
         return shiroSessionManager;
     }
 
@@ -124,7 +131,7 @@ public class ShiroConfig {
     public RedisSessionDAO redisSessionDAO(RedisManager redisManager, ShiroSessionIdGenerator sessionIdGenerator) {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager);
-        // 配置自定义sessionId,shiro自动生成色sessionId不满足条件时可以使用
+        // 配置自定义sessionId,shiro自动生成sessionId不满足条件时可以使用
         redisSessionDAO.setSessionIdGenerator(sessionIdGenerator);
         return redisSessionDAO;
     }

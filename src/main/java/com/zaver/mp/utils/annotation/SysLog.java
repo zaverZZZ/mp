@@ -2,9 +2,11 @@ package com.zaver.mp.utils.annotation;
 
 import java.lang.annotation.*;
 
-// 幂等性注解
-@Target({ElementType.METHOD})
+
+// 系统日志
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ApiIdempotent {
+public @interface SysLog {
+    String value() default "";
 }

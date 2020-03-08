@@ -2,6 +2,7 @@ package com.zaver.mp.utils.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.zaver.mp.sys.rbac.model.LoginForm;
+import com.zaver.mp.utils.HttpUtil;
 import com.zaver.mp.utils.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 @Aspect
 @Component
-@Scope("prototype")
+//@Scope("prototype")
 public class LogAspect {
 	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
@@ -82,9 +83,7 @@ public class LogAspect {
 		 * 2.根据request获取session
 		 * 3.从session中取出登录用户信息
 		 */
-		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
-		HttpServletRequest request = sra.getRequest();
+		HttpServletRequest request = HttpUtil.getHttpServletRequest();
 		Object[] args = pjp.getArgs(); // 参数值
 		String[] argNames = ((MethodSignature)pjp.getSignature()).getParameterNames(); // 参数名
 		Map<String,Object> map = new HashMap<>();
@@ -93,7 +92,7 @@ public class LogAspect {
 				String argName = argNames[i];
 				Object arg = args[i];
 				//TODO 防止打印password的暂行办法
-				if(argName.equals("loginForm")){
+				if("loginForm".equals(argName)){
                     LoginForm form = (LoginForm) arg;
                     userInfo = form.getUsername();
                     LoginForm logForm = new LoginForm();

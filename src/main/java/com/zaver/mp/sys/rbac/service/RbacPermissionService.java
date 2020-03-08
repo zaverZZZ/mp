@@ -8,7 +8,4 @@ import java.util.Map;
 
 public interface RbacPermissionService extends IService<RbacPermission>{
 
-    List<Map<String,Object>> listAliveMenu();
-
-    List<RbacPermission> listMenuByUser(Integer id);
 }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Explanation ：
  */
 @Controller
-@RequestMapping("/sys/rbacUser")
+@RequestMapping("/sys/user")
 public class RbacUserController {
     @Autowired
     private RbacUserService userService;

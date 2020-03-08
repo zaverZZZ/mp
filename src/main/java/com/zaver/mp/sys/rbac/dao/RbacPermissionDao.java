@@ -12,5 +12,5 @@ public interface RbacPermissionDao extends BaseMapper<RbacPermission>{
 
     List<Map<String,Object>> listAliveMenu();
 
-    List<RbacPermission> listMenuByUser(Integer id);
+    // List<Integer> listMenuIdsByUser(Integer id);
 }
