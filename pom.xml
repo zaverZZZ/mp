@@ -18,7 +18,7 @@
     <properties>
         <java.version>1.8</java.version>
         <jackson.version.core>2.10.2</jackson.version.core>
-        <Elasticsearch.version>7.4.0</Elasticsearch.version>
+        <Elasticsearch.version>7.13.3</Elasticsearch.version>
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
     </properties>
 
